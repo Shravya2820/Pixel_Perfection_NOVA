@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura - Your Personal Reality Architect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 'inter': ['Inter', 'sans-serif'], },
+          colors: {
+            'brand-space': '#2B2D42', // Deep Space Blue
+            'brand-slate': '#8D99AE', // Slate Gray
+            'brand-light': '#EDF2F4', // Light Background
+            'brand-accent': '#EF233C', // Accent (can be used for alerts)
+            'brand-lavender': '#C77DFF', // Vibrant Lavender for Gradients
+          },
+          animation: { 'aurora': 'aurora 60s linear infinite', },
+          keyframes: {
+            aurora: {
+              'from': { backgroundPosition: '0% 50%' },
+              'to': { backgroundPosition: '200% 50%' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .spotlight-card:before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; width: 100%; height: 100%;
+      border-radius: 1rem;
+      background: radial-gradient(800px circle at var(--x) var(--y), rgba(199, 125, 255, 0.2), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .spotlight-card:hover:before { opacity: 1; }
+  </style>
+</head>
+<body class="font-inter bg-brand-light text-brand-space dark:bg-brand-space dark:text-brand-light overflow-x-hidden antialiased">
+
+<div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-brand-light dark:bg-brand-space">
+  <div class="text-4xl font-extrabold bg-gradient-to-r from-indigo-500 to-brand-lavender bg-clip-text text-transparent animate-pulse">Aura</div>
+</div>
+
+<header class="bg-brand-light/80 dark:bg-brand-space/80 backdrop-blur-lg shadow-md sticky top-0 z-50 transition-all duration-300">
+  <div class="container mx-auto flex justify-between items-center px-6 py-4">
+    <a href="#home" class="text-2xl font-extrabold bg-gradient-to-r from-indigo-500 to-brand-lavender bg-clip-text text-transparent">Aura</a>
+    <nav class="hidden md:flex items-center space-x-8">
+      <ul class="flex space-x-8 items-center text-sm font-medium text-brand-space dark:text-brand-light">
+        <li><a href="#home" class="relative group"><span>Home</span><span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-lavender transition-all duration-300 group-hover:w-full"></span></a></li>
+        <li><a href="#features" class="relative group"><span>Features</span><span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-lavender transition-all duration-300 group-hover:w-full"></span></a></li>
+        <li><a href="#gallery" class="relative group"><span>Gallery</span><span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-lavender transition-all duration-300 group-hover:w-full"></span></a></li>
+        <li><a href="#testimonials" class="relative group"><span>Reviews</span><span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-lavender transition-all duration-300 group-hover:w-full"></span></a></li>
+      </ul>
+      <div class="flex items-center space-x-4">
+        <a href="#contact" class="px-5 py-2 text-sm font-semibold rounded-full bg-gradient-to-r from-indigo-500 to-brand-lavender text-white shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300">Pre-Order</a>
+        <button id="darkModeBtn" class="px-3 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-lg shadow hover:scale-110 hover:shadow-lg transition-all duration-300">🌙</button>
+      </div>
+    </nav>
+    <div class="md:hidden flex items-center">
+      <button id="darkModeBtnMobile" class="mr-4 px-3 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-lg shadow transition-all duration-300">🌙</button>
+      <button id="menu-btn" class="z-50"><svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-space dark:text-brand-light" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg><svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden text-brand-space dark:text-brand-light" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden absolute top-0 left-0 w-full h-screen bg-brand-light/95 dark:bg-brand-space/95 backdrop-blur-xl"><div class="flex flex-col items-center justify-center h-full space-y-8 text-xl"><a href="#home" class="mobile-link text-brand-space dark:text-brand-light">Home</a><a href="#features" class="mobile-link text-brand-space dark:text-brand-light">Features</a><a href="#gallery" class="mobile-link text-brand-space dark:text-brand-light">Gallery</a><a href="#testimonials" class="mobile-link text-brand-space dark:text-brand-light">Reviews</a><a href="#contact" class="mt-8 px-8 py-3 font-semibold rounded-full bg-gradient-to-r from-indigo-500 to-brand-lavender text-white">Pre-Order</a></div></div>
+</header>
+
+<section id="home" class="relative text-center py-32 px-6 text-white overflow-hidden">
+  <div class="absolute inset-0 z-[-1] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+  <div class="absolute inset-0 z-[-2] bg-gradient-to-br from-indigo-500 to-brand-lavender animate-aurora" style="background-size: 400% 400%;"></div>
+  <h2 class="text-4xl md:text-6xl font-extrabold mb-6 min-h-[150px] md:min-h-[200px]"><span id="typed-headline"></span></h2>
+  <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90 animate__animated animate__fadeInUp animate__delay-1s">Meet Aura, the revolutionary holographic AI that seamlessly integrates into your space, transforming the way you work, play, and connect.</p>
+  <a href="#showcase" class="px-8 py-4 rounded-full font-semibold bg-brand-light/90 text-indigo-600 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 backdrop-blur-sm animate__animated animate__fadeInUp animate__delay-2s">✨ See it in Action</a>
+</section>
+
+<section id="showcase" class="py-24 px-6 container mx-auto text-center"><h3 data-aos="fade-up" class="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-indigo-500 to-brand-lavender bg-clip-text text-transparent">Interact with the Aura Core</h3><p data-aos="fade-up" data-aos-delay="100" class="max-w-2xl mx-auto mb-12 opacity-80">This is the heart of Aura. Click and drag to explore the device from every angle.</p><div data-aos="zoom-in" data-aos-duration="1000" class="w-full h-96"><model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" alt="A 3D model of the Aura Core" auto-rotate camera-controls ar shadow-intensity="1" style="width: 100%; height: 100%; --poster-color: transparent; --progress-mask: transparent;"></model-viewer></div></section>
+
+<main class="container mx-auto py-24 px-6" id="features">
+  <h3 data-aos="fade-up" class="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-indigo-500 to-brand-lavender bg-clip-text text-transparent">The Future at Your Fingertips</h3>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div data-aos="fade-up" data-aos-delay="100" class="spotlight-card relative bg-white/30 dark:bg-slate-800/20 backdrop-blur-md rounded-2xl shadow-lg p-8 transition-all duration-500 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:scale-105">
+      <h4 class="text-xl font-semibold mb-3 text-brand-space dark:text-white">✨ Dynamic Holographic Interface</h4><p class="text-brand-space/80 dark:text-brand-light/80">Interact with stunning, high-fidelity 3D holograms. Aura brings digital content to life right in your room.</p>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="200" class="spotlight-card relative bg-white/30 dark:bg-slate-800/20 backdrop-blur-md rounded-2xl shadow-lg p-8 transition-all duration-500 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:scale-105">
+      <h4 class="text-xl font-semibold mb-3 text-brand-space dark:text-white">⚡️ Intuitive Gesture Control</h4><p class="text-brand-space/80 dark:text-brand-light/80">Navigate menus, manipulate objects, and command your AI with simple, natural hand gestures.</p>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="300" class="spotlight-card relative bg-white/30 dark:bg-slate-800/20 backdrop-blur-md rounded-2xl shadow-lg p-8 transition-all duration-500 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:scale-105">
+      <h4 class="text-xl font-semibold mb-3 text-brand-space dark:text-white">🌍 Seamless Smart Home Hub</h4><p class="text-brand-space/80 dark:text-brand-light/80">Aura intelligently connects and controls all your smart devices through one unified, beautiful interface.</p>
+    </div>
+  </div>
+</main>
+
+<section id="gallery" class="py-24 px-6 bg-slate-200/50 dark:bg-brand-space/50"><div class="container mx-auto text-center"><h3 data-aos="fade-up" class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-brand-lavender bg-clip-text text-transparent">Experience Aura in Your Space</h3><p data-aos="fade-up" data-aos-delay="100" class="max-w-2xl mx-auto mb-12 opacity-80">Aura isn't just powerful, it's designed to be beautiful. See how it seamlessly blends into any modern home or office.</p><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8"><div data-aos="fade-up" data-aos-delay="200" class="space-y-2"><img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600" alt="Aura in a modern living room" class="rounded-lg shadow-xl aspect-video object-cover"/><p class="text-sm text-brand-slate dark:text-slate-400">Aura in a modern living room.</p></div><div data-aos="fade-up" data-aos-delay="300" class="space-y-2"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600" alt="Aura visualising data in a home office" class="rounded-lg shadow-xl aspect-video object-cover"/><p class="text-sm text-brand-slate dark:text-slate-400">Visualizing data in a home office.</p></div></div></div></section>
+
+<section id="testimonials" class="py-24 px-6"><div class="container mx-auto text-center max-w-4xl"><h3 data-aos="fade-up" class="text-3xl md:text-4xl font-bold mb-12 bg-gradient-to-r from-indigo-500 to-brand-lavender bg-clip-text text-transparent">Praise from Early Adopters</h3><div class="grid md:grid-cols-2 gap-8"><div data-aos="fade-right" data-aos-delay="100" class="bg-white/50 dark:bg-slate-800/30 backdrop-blur-md p-6 rounded-lg shadow-lg text-left border border-slate-200 dark:border-slate-700"><p class="italic text-brand-space/90 dark:text-brand-light/90">"It's not just a gadget; it's a glimpse into the future. The holographic display is absolutely breathtaking and has fundamentally changed my daily briefings."</p><p class="font-bold text-indigo-500 mt-4">- TechCrunch Weekly</p></div><div data-aos="fade-left" data-aos-delay="200" class="bg-white/50 dark:bg-slate-800/30 backdrop-blur-md p-6 rounded-lg shadow-lg text-left border border-slate-200 dark:border-slate-700"><p class="italic text-brand-space/90 dark:text-brand-light/90">"The gesture controls are so intuitive, it feels like magic. My productivity has skyrocketed. I can't imagine my workflow without it now."</p><p class="font-bold text-indigo-500 mt-4">- Dr. Aris Thorne, Beta Tester</p></div></div></div></section>
+
+<section id="contact" class="py-24 px-6 bg-slate-200/50 dark:bg-brand-space/50"><div class="container mx-auto text-center" data-aos="fade-up"><h3 class="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-indigo-500 to-brand-lavender bg-clip-text text-transparent">Join the Revolution</h3><form class="max-w-lg mx-auto space-y-4" onsubmit="handleFormSubmit(event)"><input type="text" placeholder="Your Name" class="w-full p-4 rounded-xl border-slate-300 focus:ring-2 focus:ring-brand-lavender dark:bg-slate-700 dark:border-slate-600" required><input type="email" placeholder="Your Email" class="w-full p-4 rounded-xl border-slate-300 focus:ring-2 focus:ring-brand-lavender dark:bg-slate-700 dark:border-slate-600" required><textarea placeholder="Your Message" rows="4" class="w-full p-4 rounded-xl border-slate-300 focus:ring-2 focus:ring-brand-lavender dark:bg-slate-700 dark:border-slate-600"></textarea><button type="submit" class="w-full py-3 rounded-xl font-semibold bg-gradient-to-r from-indigo-500 to-brand-lavender text-white shadow hover:shadow-2xl hover:scale-[1.02] transition-all duration-500">🚀 Get Early Access</button></form></div></section>
+
+<footer class="relative text-white text-center py-12 overflow-hidden">
+    <div class="absolute inset-0 z-[-1] bg-gradient-to-br from-indigo-600 to-brand-lavender animate-aurora" style="background-size: 400% 400%;"></div>
+    <p class="opacity-80">&copy; 2025 Aura. All rights reserved.</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+<script>
+  window.onload = function() { document.getElementById('loader').style.display = 'none'; };
+  AOS.init({ duration: 800, once: true });
+  var typed = new Typed('#typed-headline', { strings: ['Your Reality, Redefined.', 'Meet Aura.', 'The Future is Here.'], typeSpeed: 50, backSpeed: 25, loop: true, smartBackspace: true });
+  function handleFormSubmit(event) { event.preventDefault(); alert("✅ Thank you! We'll keep you updated."); event.target.reset(); }
+  const menuBtn = document.getElementById('menu-btn'), mobileMenu = document.getElementById('mobile-menu'), menuIcon = document.getElementById('menu-icon'), closeIcon = document.getElementById('close-icon'), mobileLinks = document.querySelectorAll('.mobile-link');
+  menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); menuIcon.classList.toggle('hidden'); closeIcon.classList.toggle('hidden'); document.body.classList.toggle('overflow-hidden'); });
+  mobileLinks.forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuIcon.classList.remove('hidden'); closeIcon.classList.add('hidden'); document.body.classList.remove('overflow-hidden'); }); });
+  const darkBtn = document.getElementById('darkModeBtn'), darkBtnMobile = document.getElementById('darkModeBtnMobile');
+  function setDarkMode(isDark) { if (isDark) { document.documentElement.classList.add('dark'); darkBtn.textContent = '☀️'; darkBtnMobile.textContent = '☀️'; } else { document.documentElement.classList.remove('dark'); darkBtn.textContent = '🌙'; darkBtnMobile.textContent = '🌙'; } }
+  function toggleDarkMode() { setDarkMode(!document.documentElement.classList.contains('dark')); }
+  darkBtn.addEventListener('click', toggleDarkMode); darkBtnMobile.addEventListener('click', toggleDarkMode);
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { setDarkMode(true); } else { setDarkMode(false); }
+  document.querySelectorAll('.spotlight-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--x', `${x}px`);
+      card.style.setProperty('--y', `${y}px`);
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  window.$crisp=[]; window.CRISP_WEBSITE_ID="f8a631a7-3784-40ce-9801-f133a7acea39"; (function(){ d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+</script>
+
+</body>
+</html>
