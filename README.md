@@ -9,7 +9,7 @@ It features smooth animations, dark mode, 3D model interaction, and a modern res
 - Responsive, pixel-perfect UI  
 - Dark/Light mode toggle  
 - Animated hero with typing effect  
-- Interactive 3D model (`<model-viewer>`)  
+- Interactive 3D model 
 - AOS + Animate.css scroll animations  
 - Spotlight hover effects  
 - Contact form with validation  
